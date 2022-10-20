@@ -4,7 +4,7 @@
   --primary-light: #fff;
   --secondary-light: #ededed;
   --primary-color: #0369a1;
-  --secondary-color: #818cf8;
+  --secondary-color: #fecaca;
   --primary-dark: #000;
   --footer-height: 30px;
 }
@@ -24,6 +24,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: var(--secondary-color);
 }
 
 header,
@@ -31,7 +32,7 @@ footer {
   background-color: var(--primary-color);
   width: 100%;
   text-align: center;
-  color: var(--primary-light)
+  color: var(--secondary-color);
 }
 
 header {
@@ -51,7 +52,7 @@ header {
   height: 60px;
   width: 60px;
   background-color: var(--primary-color);
-  color: var(--primary-light);
+  color: var(--secondary-color);
   font-size: 1.5rem;
 }
 
