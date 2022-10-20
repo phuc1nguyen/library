@@ -1,6 +1,8 @@
 :root {
   --primary-light: #fff;
   --secondary-light: #ededed;
+  --primary-color: #0369a1;
+  --secondary-color: #818cf8;
   --primary-dark: #000;
   --footer-height: 30px;
 }
@@ -22,6 +24,14 @@ body {
   align-items: center;
 }
 
+header,
+footer {
+  background-color: var(--primary-color);
+  width: 100%;
+  text-align: center;
+  color: var(--primary-light)
+}
+
 header {
   padding: 20px;
 }
@@ -32,10 +42,30 @@ header {
 
 .button-add {
   position: fixed;
-  bottom: calc(var(--footer-height) + 50px);
-  right: 50px;
+  bottom: 80px;
+  right: 60px;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  background-color: var(--primary-color);
+  color: var(--primary-light);
 }
 
 footer {
-  height: var(--footer-height);
+  padding: 10px 0;
+}
+
+footer a {
+  color: var(--primary-light);
+}
+
+/* Utilities */
+button.btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.card {
+  box-shadow: rgba(0, 0, 0, 0.8);
 }
