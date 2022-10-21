@@ -20,7 +20,32 @@
     </button>
   </section>
 
-  <div class="form-add card">sdflasdkj</div>
+  <div class="popup-form">
+    <div class="overlay"></div>
+    <form action="" class="form-add card">
+      <h2>New Book</h2> 
+      <div class="form-control">
+        <label for="title" class="fs-18 fw-bold">Title</label>
+        <input type="text" id="title" name="title" placeholder="Book title" required>
+      </div>
+      <div class="form-control">
+        <label for="author" class="fs-18 fw-bold">Author</label>
+        <input type="text" id="author" name="author" placeholder="Author name" required>
+      </div>
+      <div class="form-control">
+        <label for="pages" class="fs-18 fw-bold">Pages</label>
+        <input type="number" id="pages" name="pages" placeholder="Number of pages" required>
+      </div>
+      <div class="form-control">
+        <div class="label fs-18 fw-bold">Read</div>
+        <label for="read" class="switch">
+          <input type="checkbox" id="read" name="read">
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <button type="button" class="btn fs-18">Add</button>
+    </form> 
+  </div>
 
   <footer>
     <p>created by <a href="https://github.com/phuc1nguyen" target="_blank">phuc1nguyen</a> &copy; <span class="footer-year"></span></p>
