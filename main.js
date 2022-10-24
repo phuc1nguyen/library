@@ -1,14 +1,46 @@
 const buttonAdd = document.querySelector(".button-add");
 const popupContainer = document.querySelector(".popup-form");
+const myForm = document.querySelector(".form-add");
 const formAddButton = document.querySelector(".form-add button");
 const thisYear = new Date().getFullYear();
-let myLib = [];
+let myLib = [
+  {
+    id: 1,
+    title: "Dune",
+    author: "Frank Herbert",
+    pages: 658,
+    read: true,
+  },
+  {
+    id: 2,
+    title: "Dune Messiah",
+    author: "Frank Herbert",
+    pages: 337,
+    read: false,
+  },
+  {
+    id: 3,
+    title: "Children of Dune",
+    author: "Frank Herbert",
+    pages: 609,
+    read: false,
+  },
+];
 
 document.querySelector(".footer-year").textContent = thisYear;
 buttonAdd.addEventListener("click", showAddForm);
-formAddButton.addEventListener("click", () => {
-  console.log(12345);
+myForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const title = document.querySelector("#title").value,
+    author = document.querySelector("#author").value,
+    pages = document.querySelector("#pages").value,
+    read = document.querySelector("#read").value;
+
+  console.log(title, author, pages, read);
 });
+
+
+
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("overlay")) {
     popupContainer.style.display = "none";
