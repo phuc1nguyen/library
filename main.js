@@ -1,5 +1,6 @@
 const buttonAdd = document.querySelector(".button-add");
 const popupContainer = document.querySelector(".popup-form");
+const bookContainer = document.querySelector(".books-container");
 const popupForm = document.querySelector(".form-add");
 const inputTitle = document.querySelector("#title");
 const inputAuthor = document.querySelector("#author");
@@ -7,6 +8,10 @@ const inputPages = document.querySelector("#pages");
 const inputRead = document.querySelector("#read");
 let isRead = false;
 const thisYear = new Date().getFullYear();
+
+document.addEventListener("DOMContentLoaded", () => {
+  getBooksFromLib();
+});
 
 document.querySelector(".footer-year").textContent = thisYear;
 buttonAdd.addEventListener("click", showPopupForm);
@@ -53,6 +58,31 @@ function clearForm() {
 
 function showPopupForm() {
   popupContainer.style.display = "flex";
+}
+
+function getBooksFromLib() {
+  myLib.map((item) => {
+    const bookItem = document.createElement("div");
+    const title = document.createElement("h2");
+    const author = document.createElement("div");
+    const pages = document.createElement("div");
+    const read = document.createElement("div");
+    bookItem.classList.add("book-item");
+    bookItem.classList.add("card");
+    title.classList.add("book-item-title");
+    title.textContent = item.title;
+    author.classList.add("book-item-author");
+    author.textContent = item.author;
+    pages.classList.add("book-item-pages");
+    pages.textContent = item.pages;
+    read.classList.add("book-item-read");
+    read.textContent = item.read;
+    bookItem.appendChild(title);
+    bookItem.appendChild(author);
+    bookItem.appendChild(pages);
+    bookItem.appendChild(read);
+    bookContainer.appendChild(bookItem);
+  });
 }
 
 // Close pop up form after clicking on overlay
