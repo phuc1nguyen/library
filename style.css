@@ -55,11 +55,16 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
 }
 
-.book-item > * {
-  text-align: center;
-  margin-bottom: 10px;
+.book-item .book-item-read {
+  width: 80%;
+  background-color: var(--primary-color);
+  color: var(--primary-light);
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-weight: bold;
 }
 
 .button-add {
@@ -201,7 +206,6 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-
 
 /* Footer */
 footer {

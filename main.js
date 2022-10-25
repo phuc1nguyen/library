@@ -66,7 +66,7 @@ function getBooksFromLib() {
     const title = document.createElement("h2");
     const author = document.createElement("div");
     const pages = document.createElement("div");
-    const read = document.createElement("div");
+    const read = document.createElement("button");
     bookItem.classList.add("book-item");
     bookItem.classList.add("card");
     title.classList.add("book-item-title");
@@ -75,8 +75,10 @@ function getBooksFromLib() {
     author.textContent = item.author;
     pages.classList.add("book-item-pages");
     pages.textContent = item.pages;
+    read.setAttribute("type", "button");
     read.classList.add("book-item-read");
-    read.textContent = item.read;
+    read.classList.add("btn");
+    read.textContent = item.read ? "READ" : "NOT READ";
     bookItem.appendChild(title);
     bookItem.appendChild(author);
     bookItem.appendChild(pages);
