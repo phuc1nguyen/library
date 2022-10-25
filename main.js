@@ -23,7 +23,7 @@ popupForm.addEventListener("submit", (e) => {
       pages = inputPages.value;
 
     const book = new Book(title, author, pages, isRead);
-    console.log(book);
+    book.addBook();
 
     popupContainer.style.display = "none";
     clearForm();
