@@ -1,4 +1,4 @@
-let myLib = [
+let myBooks = [
   {
     id: 1,
     title: "Dune",

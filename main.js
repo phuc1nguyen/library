@@ -10,7 +10,7 @@ let isRead = false;
 const thisYear = new Date().getFullYear();
 
 document.addEventListener("DOMContentLoaded", () => {
-  getBooksFromLib(books);
+  getBooksFromLib();
 });
 
 document.querySelector(".footer-year").textContent = thisYear;
@@ -60,13 +60,10 @@ function showPopupForm() {
   popupContainer.style.display = "flex";
 }
 
-function getBooksFromLib(books) {
-  if (localStorage.getItem("books")) {
-    const books = JSON.parse(localStorage.getItem("books"));
-  } else {
-    localStorage.setItem("books", JSON.stringify(myLib));
-    const books = JSON.parse(localStorage.getItem("books"));
-  }
+function getBooksFromLib() {
+  const books = localStorage.getItem("books")
+    ? JSON.parse(localStorage.getItem("books"))
+    : myBooks;
 
   books.map((item) => {
     const bookItem = document.createElement("div");
