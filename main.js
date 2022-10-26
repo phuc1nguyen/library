@@ -27,6 +27,7 @@ popupForm.addEventListener("submit", (e) => {
 
     popupContainer.style.display = "none";
     clearForm();
+    location.reload();
   } else {
     alert("Please fill in all fields");
   }
@@ -61,11 +62,7 @@ function showPopupForm() {
 }
 
 function getBooksFromLib() {
-  const books = localStorage.getItem("books")
-    ? JSON.parse(localStorage.getItem("books"))
-    : myBooks;
-
-  books.map((item) => {
+  myBooks.map((item) => {
     const bookItem = document.createElement("div");
     const title = document.createElement("h2");
     const author = document.createElement("div");
