@@ -31,7 +31,11 @@ function Book(title, author, pages, isRead) {
   this.isRead = isRead;
 }
 
-Book.prototype.addBook = function () {
+function BookShelf() {
+  this.books = [];
+}
+
+BookShelf.prototype.addBook = function (newBook) {
   const lastBookId = myBooks[myBooks.length - 1].id;
   const newBook = {
     id: lastBookId + 1,
@@ -40,11 +44,13 @@ Book.prototype.addBook = function () {
     pages: this.pages,
     read: this.isRead,
   };
-  myBooks.push(newBook);
-  localStorage.setItem("books", JSON.stringify(myBooks));
+  bookShelf.push(newBook);
+  localStorage.setItem("books", JSON.stringify(bookShelf));
 };
 
-Book.prototype.removeBook = function (book) {
-  const removedBooks = myBooks.filter((item) => book.id !== item.id);
+BookShelf.prototype.removeBook = function (bookId) {
+  const removedBooks = myBooks.filter((item) => bookId !== item.id);
   localStorage.setItem("books", JSON.stringify(removedBooks));
 };
+
+BookShelf.prototype.isInShelf = function () {};

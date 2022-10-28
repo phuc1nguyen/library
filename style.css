@@ -58,10 +58,23 @@ header {
   align-items: center;
 }
 
-.book-item .book-item-read {
+.book-item .buttons {
   width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.book-item .book-item-read {
   background-color: var(--primary-color);
   color: var(--primary-light);
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.book-item .book-item-remove {
+  background-color: #cecece; 
   padding: 10px 15px;
   border-radius: 10px;
   font-weight: bold;
