@@ -32,11 +32,11 @@ BookShelf.prototype.addBook = function (book) {
   localStorage.setItem("books", JSON.stringify(this.books));
 };
 
-BookShelf.prototype.removeBook = function (book) {
-  const removedBooks = this.books.filter((item) => book.title !== item.title);
+BookShelf.prototype.removeBook = function (bookTitle) {
+  const removedBooks = this.books.filter((item) => bookTitle !== item.title);
   localStorage.setItem("books", JSON.stringify(removedBooks));
 };
 
-BookShelf.prototype.isInShelf = function (book) {
-  return this.books.some((item) => book.title === item.title);
+BookShelf.prototype.isInShelf = function (bookTitle) {
+  return this.books.some((item) => bookTitle === item.title);
 };

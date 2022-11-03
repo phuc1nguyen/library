@@ -1,24 +1,51 @@
 // UI Elements
+const bookContainer = document.querySelector(".books-container");
+
 const buttonAdd = document.querySelector(".button-add");
 const popupContainer = document.querySelector(".popup-form");
-const bookContainer = document.querySelector(".books-container");
 const popupForm = document.querySelector(".form-add");
 const inputTitle = document.querySelector("#title");
 const inputAuthor = document.querySelector("#author");
 const inputPages = document.querySelector("#pages");
 const inputRead = document.querySelector("#read");
+
 let isRead = false;
 const thisYear = new Date().getFullYear();
 
 const bookShelf = new BookShelf();
 const myBooks = bookShelf.books;
+console.log(myBooks);
 
-document.addEventListener("DOMContentLoaded", () => {
-  getBooksFromShelf();
+getBooksFromShelf();
+
+// Add event to buttons on book item after displaying all books from bookshelf
+document.addEventListener("DOMContentLoaded", function () {
+  const buttonsRead = document.querySelectorAll(".book-item-read");
+  const buttonsRemove = document.querySelectorAll(".book-item-remove");
+
+  buttonsRead.forEach((btn) => {
+    btn.addEventListener("click", updateReadStatus);
+  });
+
+  buttonsRemove.forEach((btn) => {
+    btn.addEventListener("click", removeBook);
+  });
 });
 
 document.querySelector(".footer-year").textContent = thisYear;
 buttonAdd.addEventListener("click", showPopupForm);
+
+function updateReadStatus() {
+  console.log("read updated");
+}
+
+function removeBook(e) {
+  const bookItem = e.target.closest(".book-item");
+  const bookTitle = bookItem.querySelector(".book-item-title").textContent;
+
+  bookShelf.removeBook(bookTitle);
+  location.reload();
+}
 
 // Add book to bookshelf using pop up form
 popupForm.addEventListener("submit", (e) => {
@@ -33,21 +60,22 @@ popupForm.addEventListener("submit", (e) => {
 
     if (bookShelf.isInShelf(book)) {
       alert("This book is already added the bookshelf");
+      popupContainer.style.display = "none";
+      clearPopupForm();
     } else {
       bookShelf.addBook(book);
+      popupContainer.style.display = "none";
+      clearPopupForm();
+      location.reload();
     }
-
-    popupContainer.style.display = "none";
-    clearForm();
-    location.reload();
   } else {
     alert("Please fill in all fields");
   }
 });
 
+// Change isRead variable based on checkbox status
 document.querySelector("#read").onchange = function (e) {
-  if (e.target.checked) isRead = true;
-  else isRead = false;
+  isRead = e.target.checked;
 };
 
 function validateInputs() {
@@ -56,17 +84,6 @@ function validateInputs() {
     inputAuthor.value === "" ||
     inputPages.value === ""
   );
-}
-
-function clearForm() {
-  inputTitle.value = "";
-  inputAuthor.value = "";
-  inputPages.value = "";
-  inputRead.checked = false;
-}
-
-function showPopupForm() {
-  popupContainer.style.display = "flex";
 }
 
 function getBooksFromShelf() {
@@ -81,7 +98,6 @@ function getBooksFromShelf() {
 
     bookItem.classList.add("book-item");
     bookItem.classList.add("card");
-    bookItem.setAttribute("data-id", item.id);
     title.classList.add("book-item-title");
     title.textContent = item.title;
     author.classList.add("book-item-author");
@@ -105,6 +121,17 @@ function getBooksFromShelf() {
     bookItem.appendChild(buttons);
     bookContainer.appendChild(bookItem);
   });
+}
+
+function clearPopupForm() {
+  inputTitle.value = "";
+  inputAuthor.value = "";
+  inputPages.value = "";
+  inputRead.checked = false;
+}
+
+function showPopupForm() {
+  popupContainer.style.display = "flex";
 }
 
 // Close pop up form after clicking on overlay
