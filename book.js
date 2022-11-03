@@ -1,29 +1,10 @@
-const myBooks = localStorage.getItem("books")
-  ? JSON.parse(localStorage.getItem("books"))
-  : [
-      {
-        id: 1,
-        title: "Dune",
-        author: "Frank Herbert",
-        pages: 658,
-        read: true,
-      },
-      {
-        id: 2,
-        title: "Dune Messiah",
-        author: "Frank Herbert",
-        pages: 337,
-        read: false,
-      },
-      {
-        id: 3,
-        title: "Children of Dune",
-        author: "Frank Herbert",
-        pages: 609,
-        read: false,
-      },
-    ];
-
+/**
+ * Represent the book item
+ * @param {string} title - The title of the book
+ * @param {string} author - The author of the book
+ * @param {number} pages - The book's number of pages
+ * @param {boolean} isRead - Whether the book is read
+ */
 function Book(title, author, pages, isRead) {
   this.title = title;
   this.author = author;
@@ -31,26 +12,31 @@ function Book(title, author, pages, isRead) {
   this.isRead = isRead;
 }
 
-function BookShelf() {
-  this.books = [];
-}
-
-BookShelf.prototype.addBook = function (newBook) {
-  const lastBookId = myBooks[myBooks.length - 1].id;
-  const newBook = {
-    id: lastBookId + 1,
-    title: this.title,
-    author: this.author,
-    pages: this.pages,
-    read: this.isRead,
-  };
-  bookShelf.push(newBook);
-  localStorage.setItem("books", JSON.stringify(bookShelf));
+Book.prototype.getInfo = function () {
+  return `${this.title} by ${this.author}, ${pages} pages, ${
+    isRead ? "already read" : "not read yet"
+  }`;
 };
 
-BookShelf.prototype.removeBook = function (bookId) {
-  const removedBooks = myBooks.filter((item) => bookId !== item.id);
+/**
+ * Represent the book collection
+ */
+function BookShelf() {
+  this.books = localStorage.getItem("books")
+    ? JSON.parse(localStorage.getItem("books"))
+    : [];
+}
+
+BookShelf.prototype.addBook = function (book) {
+  this.books.push(book);
+  localStorage.setItem("books", JSON.stringify(this.books));
+};
+
+BookShelf.prototype.removeBook = function (book) {
+  const removedBooks = this.books.filter((item) => book.title !== item.title);
   localStorage.setItem("books", JSON.stringify(removedBooks));
 };
 
-BookShelf.prototype.isInShelf = function () {};
+BookShelf.prototype.isInShelf = function (book) {
+  return this.books.some((item) => book.title === item.title);
+};

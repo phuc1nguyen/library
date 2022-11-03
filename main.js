@@ -1,3 +1,4 @@
+// UI Elements
 const buttonAdd = document.querySelector(".button-add");
 const popupContainer = document.querySelector(".popup-form");
 const bookContainer = document.querySelector(".books-container");
@@ -9,6 +10,9 @@ const inputRead = document.querySelector("#read");
 let isRead = false;
 const thisYear = new Date().getFullYear();
 
+const bookShelf = new BookShelf();
+const myBooks = bookShelf.books;
+
 document.addEventListener("DOMContentLoaded", () => {
   getBooksFromShelf();
 });
@@ -16,18 +20,22 @@ document.addEventListener("DOMContentLoaded", () => {
 document.querySelector(".footer-year").textContent = thisYear;
 buttonAdd.addEventListener("click", showPopupForm);
 
-/**
- * Add book to bookshelf using pop up form
- */
+// Add book to bookshelf using pop up form
 popupForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (validateInputs()) {
-    const title = inputTitle.value,
-      author = inputAuthor.value,
-      pages = inputPages.value;
+    const book = new Book(
+      inputTitle.value,
+      inputAuthor.value,
+      inputPages.value,
+      isRead,
+    );
 
-    const book = new Book(title, author, pages, isRead);
-    book.addBook(myBooks);
+    if (bookShelf.isInShelf(book)) {
+      alert("This book is already added the bookshelf");
+    } else {
+      bookShelf.addBook(book);
+    }
 
     popupContainer.style.display = "none";
     clearForm();
@@ -43,15 +51,11 @@ document.querySelector("#read").onchange = function (e) {
 };
 
 function validateInputs() {
-  if (
+  return !(
     inputTitle.value === "" ||
     inputAuthor.value === "" ||
     inputPages.value === ""
-  ) {
-    return false;
-  }
-
-  return true;
+  );
 }
 
 function clearForm() {
@@ -74,6 +78,7 @@ function getBooksFromShelf() {
     const read = document.createElement("button");
     const remove = document.createElement("button");
     const buttons = document.createElement("div");
+
     bookItem.classList.add("book-item");
     bookItem.classList.add("card");
     bookItem.setAttribute("data-id", item.id);
@@ -102,18 +107,14 @@ function getBooksFromShelf() {
   });
 }
 
-/**
- * Close pop up form after clicking on overlay
- */
+// Close pop up form after clicking on overlay
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("overlay")) {
     popupContainer.style.display = "none";
   }
 });
 
-/**
- * Close pop up form after clicking Escape key
- */
+// Close pop up form after clicking Escape key
 window.addEventListener("keydown", (e) => {
   if (e.code === "Escape") {
     popupContainer.style.display = "none";
