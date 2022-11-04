@@ -38,18 +38,21 @@ const footerYear = document.querySelector(".footer-year");
 footerYear!.textContent = thisYear;
 buttonAdd?.addEventListener("click", showPopupForm);
 
-function updateReadStatus() {
-  console.log("read updated");
+function updateReadStatus(e: any) {
+  const bookItem = e.target.closest(".book-item");
+  const bookTitle = bookItem.querySelector(".book-item-title").textContent;
+
+  bookShelf.updateReadStatus(bookTitle);
+  location.reload();
 }
 
-function removeBook() {
-  // const bookItem = e.target.closest(".book-item");
-  // const bookTitle: string | null =
-  //   bookItem.querySelector(".book-item-title")!.textContent;
+function removeBook(e: any) {
+  const bookItem = e.target.closest(".book-item");
+  const bookTitle: string | null =
+    bookItem.querySelector(".book-item-title")!.textContent;
 
-  // bookShelf.removeBook(bookTitle!);
-  // location.reload();
-  console.log("book removed");
+  bookShelf.removeBook(bookTitle!);
+  location.reload();
 }
 
 // Add book to bookshelf using pop up form

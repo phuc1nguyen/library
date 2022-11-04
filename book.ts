@@ -1,8 +1,8 @@
 type BookType = {
-  title: string;
-  author: string;
-  pages: number;
-  isRead: boolean;
+  readonly title: string;
+  readonly author: string;
+  readonly pages: number;
+  readonly isRead: boolean;
 };
 
 /**
@@ -43,6 +43,20 @@ export class BookShelf {
   addBook(book: BookType): void {
     this.books.push(book);
     localStorage.setItem("books", JSON.stringify(this.books));
+  }
+
+  updateReadStatus(bookTitle: string): void {
+    const clickedBook = this.books.find(
+      (item: BookType) => bookTitle === item.title,
+    );
+    const updatedShelf = [
+      {
+        ...clickedBook,
+        isRead: !clickedBook?.isRead,
+      },
+      ...this.books.filter((item) => item.title !== bookTitle),
+    ];
+    localStorage.setItem("books", JSON.stringify(updatedShelf));
   }
 
   removeBook(bookTitle: string): void {
