@@ -1,16 +1,18 @@
-// UI Elements
-const bookContainer = document.querySelector(".books-container");
+import { BookShelf, Book } from "./book";
 
-const buttonAdd = document.querySelector(".button-add");
-const popupContainer = document.querySelector(".popup-form");
-const popupForm = document.querySelector(".form-add");
-const inputTitle = document.querySelector("#title");
-const inputAuthor = document.querySelector("#author");
-const inputPages = document.querySelector("#pages");
-const inputRead = document.querySelector("#read");
+// UI Elements
+const bookContainer = document.querySelector(".books-container") as HTMLElement;
+
+const buttonAdd = document.querySelector(".button-add") as HTMLElement;
+const popupContainer = document.querySelector(".popup-form") as HTMLElement;
+const popupForm = document.querySelector(".form-add") as HTMLElement;
+const inputTitle = document.querySelector("#title") as HTMLInputElement;
+const inputAuthor = document.querySelector("#author") as HTMLInputElement;
+const inputPages = document.querySelector("#pages") as HTMLInputElement;
+const inputRead = document.querySelector("#read") as HTMLInputElement;
 
 let isRead = false;
-const thisYear = new Date().getFullYear();
+const thisYear = String(new Date().getFullYear());
 
 const bookShelf = new BookShelf();
 const myBooks = bookShelf.books;
@@ -32,33 +34,36 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.querySelector(".footer-year").textContent = thisYear;
-buttonAdd.addEventListener("click", showPopupForm);
+const footerYear = document.querySelector(".footer-year");
+footerYear!.textContent = thisYear;
+buttonAdd?.addEventListener("click", showPopupForm);
 
 function updateReadStatus() {
   console.log("read updated");
 }
 
-function removeBook(e) {
-  const bookItem = e.target.closest(".book-item");
-  const bookTitle = bookItem.querySelector(".book-item-title").textContent;
+function removeBook() {
+  // const bookItem = e.target.closest(".book-item");
+  // const bookTitle: string | null =
+  //   bookItem.querySelector(".book-item-title")!.textContent;
 
-  bookShelf.removeBook(bookTitle);
-  location.reload();
+  // bookShelf.removeBook(bookTitle!);
+  // location.reload();
+  console.log("book removed");
 }
 
 // Add book to bookshelf using pop up form
 popupForm.addEventListener("submit", (e) => {
   e.preventDefault();
   if (validateInputs()) {
-    const book = new Book(
-      inputTitle.value,
-      inputAuthor.value,
-      inputPages.value,
-      isRead,
-    );
+    const book = new Book({
+      title: inputTitle.value,
+      author: inputAuthor.value,
+      pages: parseInt(inputPages.value),
+      isRead: isRead,
+    });
 
-    if (bookShelf.isInShelf(book)) {
+    if (bookShelf.isInShelf(book.title)) {
       alert("This book is already added the bookshelf");
       popupContainer.style.display = "none";
       clearPopupForm();
@@ -74,9 +79,10 @@ popupForm.addEventListener("submit", (e) => {
 });
 
 // Change isRead variable based on checkbox status
-document.querySelector("#read").onchange = function (e) {
-  isRead = e.target.checked;
-};
+const readCheckbox = document.querySelector("#read");
+readCheckbox?.addEventListener("change", function (e) {
+  isRead = (<HTMLInputElement>e.target).checked;
+});
 
 function validateInputs() {
   return !(
@@ -103,12 +109,12 @@ function getBooksFromShelf() {
     author.classList.add("book-item-author");
     author.textContent = item.author;
     pages.classList.add("book-item-pages");
-    pages.textContent = item.pages;
+    pages.textContent = String(item.pages);
     buttons.classList.add("buttons");
     read.setAttribute("type", "button");
     read.classList.add("book-item-read");
     read.classList.add("btn");
-    read.textContent = item.read ? "READ" : "NOT READ";
+    read.textContent = item.isRead ? "READ" : "NOT READ";
     remove.setAttribute("type", "button");
     remove.classList.add("book-item-remove");
     remove.classList.add("btn");
@@ -136,7 +142,7 @@ function showPopupForm() {
 
 // Close pop up form after clicking on overlay
 document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("overlay")) {
+  if ((<HTMLElement>e.target).classList.contains("overlay")) {
     popupContainer.style.display = "none";
   }
 });

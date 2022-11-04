@@ -1,0 +1,14 @@
+{
+  "name": "library",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:phuc1nguyen/library.git",
+  "author": "phuc1nguyen <phuc.ng13988@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
