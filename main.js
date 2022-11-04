@@ -1,6 +1,5 @@
 // UI Elements
 const bookContainer = document.querySelector(".books-container");
-
 const buttonAdd = document.querySelector(".button-add");
 const popupContainer = document.querySelector(".popup-form");
 const popupForm = document.querySelector(".form-add");
@@ -14,7 +13,6 @@ const thisYear = new Date().getFullYear();
 
 const bookShelf = new BookShelf();
 const myBooks = bookShelf.books;
-console.log(myBooks);
 
 getBooksFromShelf();
 
@@ -35,8 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
 document.querySelector(".footer-year").textContent = thisYear;
 buttonAdd.addEventListener("click", showPopupForm);
 
-function updateReadStatus() {
-  console.log("read updated");
+function updateReadStatus(e) {
+  const bookItem = e.target.closest(".book-item");
+  const bookTitle = bookItem.querySelector(".book-item-title").textContent;
+
+  bookShelf.updateReadStatus(bookTitle);
+
+  location.reload();
 }
 
 function removeBook(e) {
@@ -58,7 +61,7 @@ popupForm.addEventListener("submit", (e) => {
       isRead,
     );
 
-    if (bookShelf.isInShelf(book)) {
+    if (bookShelf.isInShelf(book.title)) {
       alert("This book is already added the bookshelf");
       popupContainer.style.display = "none";
       clearPopupForm();
@@ -108,7 +111,7 @@ function getBooksFromShelf() {
     read.setAttribute("type", "button");
     read.classList.add("book-item-read");
     read.classList.add("btn");
-    read.textContent = item.read ? "READ" : "NOT READ";
+    read.textContent = item.isRead ? "READ" : "NOT READ";
     remove.setAttribute("type", "button");
     remove.classList.add("book-item-remove");
     remove.classList.add("btn");

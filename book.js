@@ -32,6 +32,19 @@ BookShelf.prototype.addBook = function (book) {
   localStorage.setItem("books", JSON.stringify(this.books));
 };
 
+BookShelf.prototype.updateReadStatus = function (bookTitle) {
+  const clickedBook = this.books.find((item) => bookTitle === item.title);
+  // TODO: working on this
+  const updatedShelf = [
+    {
+      ...clickedBook,
+      isRead: !clickedBook.isRead,
+    },
+    ...this.books.filter((item) => item.title !== bookTitle),
+  ];
+  localStorage.setItem("books", JSON.stringify(updatedShelf));
+};
+
 BookShelf.prototype.removeBook = function (bookTitle) {
   const removedBooks = this.books.filter((item) => bookTitle !== item.title);
   localStorage.setItem("books", JSON.stringify(removedBooks));
