@@ -32,7 +32,7 @@ export class Book {
  * Represent the book collection
  */
 export class BookShelf {
-  books: Array<BookType>;
+  books: readonly BookType[];
 
   constructor() {
     this.books = localStorage.getItem("books")
@@ -41,8 +41,8 @@ export class BookShelf {
   }
 
   addBook(book: BookType): void {
-    this.books.push(book);
-    localStorage.setItem("books", JSON.stringify(this.books));
+    const updatedBooks = [...this.books, book];
+    localStorage.setItem("books", JSON.stringify(updatedBooks));
   }
 
   updateReadStatus(bookTitle: string): void {
