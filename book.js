@@ -24,7 +24,14 @@ Book.prototype.getInfo = function () {
 function BookShelf() {
   this.books = localStorage.getItem("books")
     ? JSON.parse(localStorage.getItem("books"))
-    : [];
+    : [
+        {
+          title: "Dune Messiah",
+          author: "Frank Herbert",
+          pages: 337,
+          isRead: false,
+        },
+      ];
 }
 
 BookShelf.prototype.addBook = function (book) {
@@ -34,7 +41,6 @@ BookShelf.prototype.addBook = function (book) {
 
 BookShelf.prototype.updateReadStatus = function (bookTitle) {
   const clickedBook = this.books.find((item) => bookTitle === item.title);
-  // TODO: working on this
   const updatedShelf = [
     {
       ...clickedBook,
